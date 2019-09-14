@@ -1,0 +1,19 @@
+
+<section class="working-times">
+
+  <div class="flex-container">
+    <table>
+      <tr>
+        <th>Id</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+      </tr>
+      <tr v-for="(data, index) in dataBack" v-on:click="redirectWorkingTime(index)">
+        <td>{{data.id}}</td>
+        <td>{{moment(data.start).format('DD MMMM YYYY, h:mm:ss a')}}</td>
+        <td>{{moment(data.end).format('DD MMMM YYYY, h:mm:ss a')}}</td>
+      </tr>
+    </table>
+  </div>
+</section>
+

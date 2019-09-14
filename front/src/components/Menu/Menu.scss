@@ -1,0 +1,28 @@
+.menu {
+}
+
+.div_menu{
+  background-color: #2c3e50;
+  text-align: center;
+  justify-content: center;
+  margin: auto;
+}
+
+.div_menu h1{
+  color: #8e908c;
+  margin:0;
+  padding-top:30px;
+}
+
+.ul_menu{
+  display: inline-flex;
+}
+
+.ul_menu li{
+  margin: 1em 50px;
+}
+
+a{
+  text-decoration: none;
+  color: #8e908c;
+}

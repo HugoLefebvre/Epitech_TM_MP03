@@ -1,0 +1,14 @@
+version: '2'
+services:
+  front:
+    image: node:lts-alpine
+    build: ./front
+  back:
+    image: elixir:1.5
+    build: ./back
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
