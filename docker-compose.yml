@@ -3,12 +3,20 @@ services:
   front:
     image: node:lts-alpine
     build: ./front
+    ports:
+        - "8080:8080"
   back:
-    image: elixir:1.5
+    image: ubuntu
     build: ./back
+    ports:
+        - "4000:4000"
+    depends_on:
+      - db
   db:
     image: postgres
     restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+      PGDATABASE: api_dev
+      PGPORT: 5432

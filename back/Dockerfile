@@ -1,10 +1,16 @@
-FROM elixir:1.5
+FROM elixir:1.9.1
 
-COPY ./ ./
-WORKDIR /Epitech_TM_MP01/api/
+# Create app directory and copy the Elixir projects into it
+COPY . /app
+WORKDIR /app
 
+RUN apt-get update
+
+# Install hex package manager
+# By using --force, we don’t need to type “Y” to confirm the installation
 RUN mix local.hex --force
+RUN apt-get install -y inotify-tools
 RUN mix deps.get
-RUN mix ecto.create
-RUN mix ecto.migrate
-RUN mix phx.server
+EXPOSE 4000
+
+CMD ["mix", "phx.server"]

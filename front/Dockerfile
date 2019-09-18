@@ -1,9 +1,9 @@
 FROM node:lts-alpine
 
-COPY . .
-WORKDIR Epitech_TM_MP02/app/
+COPY . app/
+WORKDIR app/
 
-#COPY Epitech_TM_MP02/app/package*.json ./
+#COPY package*.json ./
 
 RUN npm rebuild node-sass
 RUN npm install
