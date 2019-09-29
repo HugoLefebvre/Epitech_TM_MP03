@@ -3,10 +3,50 @@ defmodule Api.Auth do
   The Auth context.
   """
 
+  require Logger
+
   import Ecto.Query, warn: false
+  import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
+  alias Api.Token
   alias Api.Repo
 
   alias Api.Auth.User
+
+  # Get the user by his email
+  defp get_by_email(email) when is_binary(email) do
+    case Repo.get_by(User, email: email) do 
+      nil ->
+        dummy_checkpw()
+        {:error, "Login error !"}
+      user ->
+        {:ok, user}
+    end
+  end 
+  
+  # Check if the password is correct
+  defp check_password(password, %User{} = user) when is_binary(password) do
+    if checkpw(password, user.password_hash) do
+      {:ok, user}
+    else
+      {:error, :invalid_password}
+    end
+  end
+
+  # Authentication with email and password
+  defp email_password_auth(email, password) when is_binary(email) and is_binary(password) do
+    with {:ok, user} <- get_by_email(email),
+    do: check_password(password, user)
+  end
+
+  # Create a token when sign in
+  def sign_in(email, password) do
+    case email_password_auth(email, password) do 
+      {:ok, user} -> 
+        %{"id" => user.id, "role" => user.role_id}
+      _ ->
+        nil
+    end
+  end
 
   @doc """
   Returns the list of users.
@@ -70,6 +110,24 @@ defmodule Api.Auth do
   def update_user(%User{} = user, attrs) do
     user
     |> User.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Update a token in user
+  """
+  def update_token(%User{} = user, attrs) do
+    user
+    |> User.changeToken(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Update a user without his password
+  """
+  def update_user_without_password(%User{} = user, attrs) do
+    user
+    |> User.changesetWithoutPassword(attrs)
     |> Repo.update()
   end
 
@@ -292,5 +350,229 @@ defmodule Api.Auth do
   """
   def change_working_time(%WorkingTime{} = working_time) do
     WorkingTime.changeset(working_time, %{})
+  end
+
+  alias Api.Auth.Team
+
+  @doc """
+  Returns the list of teams.
+
+  ## Examples
+
+      iex> list_teams()
+      [%Team{}, ...]
+
+  """
+  def list_teams do
+    Repo.all(Team)
+  end
+
+  @doc """
+  Gets a single team.
+
+  Raises `Ecto.NoResultsError` if the Team does not exist.
+
+  ## Examples
+
+      iex> get_team!(123)
+      %Team{}
+
+      iex> get_team!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_team!(id), do: Repo.get!(Team, id)
+
+  @doc """
+  Creates a team.
+
+  ## Examples
+
+      iex> create_team(%{field: value})
+      {:ok, %Team{}}
+
+      iex> create_team(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_team(attrs \\ %{}) do
+    %Team{}
+    |> Team.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a team.
+
+  ## Examples
+
+      iex> update_team(team, %{field: new_value})
+      {:ok, %Team{}}
+
+      iex> update_team(team, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_team(%Team{} = team, attrs) do
+    team
+    |> Team.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a Team.
+
+  ## Examples
+
+      iex> delete_team(team)
+      {:ok, %Team{}}
+
+      iex> delete_team(team)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_team(%Team{} = team) do
+    Repo.delete(team)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking team changes.
+
+  ## Examples
+
+      iex> change_team(team)
+      %Ecto.Changeset{source: %Team{}}
+
+  """
+  def change_team(%Team{} = team) do
+    Team.changeset(team, %{})
+  end
+
+  alias Api.Auth.TeamsUsers
+
+  @doc """ 
+  Delete/Update team members
+  TODO : must be refractor !
+  """
+  def update_team_members(%Team{} = team, user_ids) when is_list(user_ids) do 
+    # Get all the users existed in the database
+    users = User
+            |> where([user], user.id in ^user_ids)
+            |> Repo.all()
+            |> Repo.preload(:teams)
+
+    # Get all the teams users with a certain team id
+    teamsUsers = TeamsUsers
+                  |> where(team_id: ^team.id)
+                  |> Repo.all()
+
+    # For each team user, delete the association
+    Enum.each teamsUsers, fn teamUser -> 
+      Repo.delete(teamUser)
+    end
+
+    # For each user, add the association
+    Enum.each users, fn user ->
+      changeset = TeamsUsers.changeset(%TeamsUsers{}, %{team_id: team.id, user_id: user.id})
+      Repo.insert(changeset)
+    end
+    
+    {:ok, team} # Return the team
+  end
+
+  alias Api.Auth.Role
+
+  @doc """
+  Returns the list of roles.
+
+  ## Examples
+
+      iex> list_roles()
+      [%Role{}, ...]
+
+  """
+  def list_roles do
+    Repo.all(Role)
+  end
+
+  @doc """
+  Gets a single role.
+
+  Raises `Ecto.NoResultsError` if the Role does not exist.
+
+  ## Examples
+
+      iex> get_role!(123)
+      %Role{}
+
+      iex> get_role!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_role!(id), do: Repo.get!(Role, id)
+
+  @doc """
+  Creates a role.
+
+  ## Examples
+
+      iex> create_role(%{field: value})
+      {:ok, %Role{}}
+
+      iex> create_role(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_role(attrs \\ %{}) do
+    %Role{}
+    |> Role.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a role.
+
+  ## Examples
+
+      iex> update_role(role, %{field: new_value})
+      {:ok, %Role{}}
+
+      iex> update_role(role, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_role(%Role{} = role, attrs) do
+    role
+    |> Role.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a Role.
+
+  ## Examples
+
+      iex> delete_role(role)
+      {:ok, %Role{}}
+
+      iex> delete_role(role)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_role(%Role{} = role) do
+    Repo.delete(role)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking role changes.
+
+  ## Examples
+
+      iex> change_role(role)
+      %Ecto.Changeset{source: %Role{}}
+
+  """
+  def change_role(%Role{} = role) do
+    Role.changeset(role, %{})
   end
 end

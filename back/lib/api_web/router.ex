@@ -12,6 +12,7 @@ defmodule ApiWeb.Router do
   pipeline :api do
     plug CORSPlug, origin: "http://localhost:8080"
     plug :accepts, ["json"]
+
   end
 
   scope "/", ApiWeb do
@@ -31,9 +32,12 @@ defmodule ApiWeb.Router do
 
     # Endpoint : http://localhost:4000/api/users?email=XXX&username=YYY
     # See showUser in user_controller
-    get "/", UserController, :index
 		get("/", UserController, :showUser)
 		get "/:userID", UserController, :showUserById
+    post "/sign_up", UserController, :create
+    post "/sign_in", UserController, :sign_in
+    patch "/logout", UserController, :logout
+    
 		resources "/", UserController, except: [:new, :edit]
 	end
 
@@ -57,6 +61,21 @@ defmodule ApiWeb.Router do
     resources "/", ClockingController, only: [:index, :show]
   end
 
+  scope "/api/teams", ApiWeb do
+    pipe_through :api
+
+    get "/:id", TeamController, :showTeam
+    patch "/:id", TeamController, :updateMembers
+
+    resources "/", TeamController, except: [:new, :edit]
+  end
+
+  scope "/api/roles", ApiWeb do
+    pipe_through :api
+
+    resources "/", RoleController, only: [:index, :show, :create]
+  end
+  
   # Other scopes may use custom stacks.
   # scope "/api", ApiWeb do
   #   pipe_through :api

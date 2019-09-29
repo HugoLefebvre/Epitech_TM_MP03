@@ -1,0 +1,32 @@
+<section class="users" xmlns:v-on="http://www.w3.org/1999/xhtml">
+  
+  <div class="flex-container">
+    <button @click.stop.prevent="displayCreate()">Create a new user</button>
+  </div>
+
+  <v-dialog>
+    test
+  </v-dialog>
+
+  <div class="flex-container">
+    <table>
+      <tr>
+        <th>Id</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th></th>
+        <th></th>
+      </tr>
+      <tr v-for="(data, index) in dataBack">
+        <td>{{data.id}}</td>
+        <td>{{data.username}}</td>
+        <td>{{data.email}}</td>
+        <td><span class="click-link" v-on:click="editUser(data.id)">Edit</span></td>
+        <td><span class="click-link" v-on:click="popupDelete(data.id)">Delete</span></td>
+      </tr>
+    </table>
+
+  </div>
+
+</section>
+

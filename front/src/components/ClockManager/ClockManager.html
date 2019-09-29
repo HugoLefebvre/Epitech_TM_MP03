@@ -1,5 +1,57 @@
+<section class="clock-manager" xmlns:v-on="http://www.w3.org/1999/xhtml">
 
-<section class="clock-manager">
-  <h1>clock-manager Component</h1>
+    <div class="manage_single_clock">
+        <div v-if="this.ClockState == 1">
+            <b>CLOCK STARTED</b>
+            <br>
+            {{ ClockTime }}
+        </div>
+        <div class="button_cont" align="center" v-on:click="useClock">
+            <a v-if="this.ClockState == 0" class="example_e start_clock" target="_blank" rel="nofollow noopener">
+                <span>START CLOCK</span>
+            </a>
+            <a v-if="this.ClockState == 1" class="example_e stop_clock" target="_blank" rel="nofollow noopener">
+                <span>STOP CLOCK</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="flex-container" v-if="this.Role != '3'">
+        <div>
+            <h1>USER LIST</h1>
+            <div class="wts_to_hide_users" v-if="!userDisplay" v-on:click="displayUsers()">
+                Click here to display Users
+            </div>
+            <table v-if="userDisplay">
+                <tr>
+                    <th>Id User</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                </tr>
+                <tr v-for="(data, index) in dataUser" v-on:click="redirectWorkingTime(data.id)">
+                    <td>{{data.id}}</td>
+                    <td>{{data.username }}</td>
+                    <td>{{data.email}}</td>
+                </tr>
+            </table>
+        </div>
+        <br>
+        <h1>CLOCKS LIST</h1>
+        <p>Click on items to reach their user's pages</p>
+      <table>
+        <tr>
+          <th>Id</th>
+          <th>Id User</th>
+          <th>Time</th>
+          <th>Status</th>
+        </tr>
+        <tr v-for="(data, index) in dataBack" v-on:click="redirectWorkingTime(data.user)">
+          <td>{{data.id}}</td>
+          <td>{{data.username }}</td>
+          <td>{{moment(data.time).format('DD MMMM YYYY, h:mm:ss a')}}</td>
+          <td>{{data.status}}</td>
+        </tr>
+      </table>
+    </div>
+
 </section>
-

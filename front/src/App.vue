@@ -1,19 +1,33 @@
 <template>
   <div id="app">
-    <Menu />
+    <Index />
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Menu from "./components/Menu/index"
-
+import Index from "./components/Index/index"
 
 export default {
   name: 'app',
   components: {
-    Menu
-  }
+    Index
+  },
+  data () {
+    return {
+        IdUser:'',
+        Role:'',
+        Username:'',
+        Email:''
+    }
+  },
+  computed: {
+  },
+  mounted () {
+  },
+  methods: {
+
+  },
 }
 </script>
 

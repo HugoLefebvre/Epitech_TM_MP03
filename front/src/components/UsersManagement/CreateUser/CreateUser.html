@@ -1,0 +1,29 @@
+<section class="user">
+
+  <div class="flex-container">
+
+    <div>
+      <h1>Create user</h1>
+    </div>
+
+    <form v-on:submit.prevent="submit()">
+    
+      <div class="flex-container">
+        <label>Username</label>
+        <input type="text" v-model="username">
+      </div>
+    
+      <div class="flex-container">
+        <label>Email</label>
+        <input type="text" v-model="email">
+      </div>
+    
+      <div class="flex-container">
+        <button type="submit">Create</button>
+      </div>
+    
+    </form>
+
+  </div>
+
+</section>  

@@ -1,5 +1,14 @@
-version: '2'
+version: '3'
 services:
+  db:
+    image: postgres:9.6
+    restart: always
+    env_file:
+      - ./.env
+    environment:
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_DB: ${PGDATABASE}
   front:
     image: node:lts-alpine
     build: ./front
@@ -8,15 +17,15 @@ services:
   back:
     image: ubuntu
     build: ./back
+    env_file:
+      - ./.env
+    environment:
+      PGUSER: ${PGUSER}
+      PGPASSWORD: ${PGPASSWORD}
+      PGDATABASE: ${PGDATABASE}
+      PGPORT: ${PGPORT}
+      PGHOST: db
     ports:
         - "4000:4000"
     depends_on:
       - db
-  db:
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      PGDATABASE: api_dev
-      PGPORT: 5432

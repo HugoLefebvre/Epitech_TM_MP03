@@ -5,8 +5,9 @@ WORKDIR app/
 
 #COPY package*.json ./
 
-RUN npm rebuild node-sass
 RUN npm install
+RUN npm audit fix --force
+RUN npm rebuild node-sass
 RUN npm run build
 # If you are building your code for production
 # RUN npm ci --only=production

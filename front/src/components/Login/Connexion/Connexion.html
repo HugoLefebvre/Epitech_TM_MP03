@@ -1,0 +1,21 @@
+
+<section class="connexion">
+    <form v-on:submit.prevent="submit()">
+        <ul class="form-style-1">
+            <li>
+                <label>Email <span class="required">*</span></label>
+                <input v-model="email" type="text" name="field3" class="field-long" placeholder="Email" />
+            </li>
+            <li>
+                <label>Password<span class="required">*</span></label>
+                <input v-model="password" type="password" name="field3" class="field-long" />
+            </li>
+            <li v-if="error_conn != ''">
+                <span style="color:red">{{ error_conn }}</span>
+            </li>
+            <li>
+                <input type="submit" value="Connexion" />
+            </li>
+        </ul>
+    </form>
+</section>

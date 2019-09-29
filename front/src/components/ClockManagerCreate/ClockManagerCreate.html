@@ -1,0 +1,12 @@
+
+<section class="clock-manager-create">
+    <div class="flex-container">
+        <form class="flex-container" v-on:submit.prevent="submit()">
+            <label>Time</label>
+            <datetime class="flex-container" type="datetime" v-model="time"></datetime>
+            <label>Status</label>
+            <input class="flex-container check_status" type="checkbox" v-model="status" />
+            <button type="submit">Create</button>
+        </form>
+    </div>
+</section>

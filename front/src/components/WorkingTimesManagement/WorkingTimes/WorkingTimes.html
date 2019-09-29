@@ -1,0 +1,40 @@
+
+<section class="working-times">
+
+  <div class="flex-container" v-if="$parent.Role!=1">
+      <h1>USER LIST</h1>
+      <div class="wts_to_hide_users" v-if="!userDisplay" v-on:click="displayUsers()">
+          Click here to display Users
+      </div>
+      <table v-if="userDisplay">
+        <tr>
+          <th>Id User</th>
+          <th>Username</th>
+          <th>Email</th>
+        </tr>
+        <tr v-for="(data, index) in dataUser" v-on:click="redirectWorkingTime(data.id)">
+          <td>{{data.id}}</td>
+          <td>{{data.username }}</td>
+          <td>{{data.email}}</td>
+        </tr>
+      </table>
+      <br>
+      <h1>WORKING TIMES LIST</h1>
+      <p>Click on items to reach their user's pages</p>
+    <table>
+      <tr>
+        <th>Id</th>
+        <th>Id User</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+      </tr>
+      <tr v-for="(data, index) in dataBack" v-on:click="redirectWorkingTime(data.user)">
+        <td>{{data.id}}</td>
+        <td>{{data.username }}</td>
+        <td>{{moment(data.start).format('DD MMMM YYYY, h:mm:ss a')}}</td>
+        <td>{{moment(data.end).format('DD MMMM YYYY, h:mm:ss a')}}</td>
+      </tr>
+    </table>
+  </div>
+  <WorkingTime class="userInterface" v-if="$parent.Role == 1" />
+</section>

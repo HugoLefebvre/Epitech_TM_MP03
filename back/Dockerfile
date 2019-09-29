@@ -11,6 +11,8 @@ RUN apt-get update
 RUN mix local.hex --force
 RUN apt-get install -y inotify-tools
 RUN mix deps.get
-EXPOSE 4000
+RUN mix local.rebar --force
 
-CMD ["mix", "phx.server"]
+RUN mix do compile
+
+CMD ["/app/entrypoint.sh"]

@@ -51,8 +51,13 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :api, Api.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: System.get_env("PGUSER"),
+  password: System.get_env("PGPASSWORD"),
   database: "api_dev",
-  hostname: "localhost",
+  hostname: System.get_env("PGHOST"),
+  port: System.get_env("PGPORT"),
   pool_size: 10
+
+# Configure Joken 
+# Documentation : https://hexdocs.pm/joken/introduction.html
+config :joken, default_signer: "secret"

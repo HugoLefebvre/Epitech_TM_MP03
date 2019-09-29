@@ -17,4 +17,16 @@ defmodule ApiWeb.FallbackController do
     |> put_status(:not_found)
     |> render(ApiWeb.ErrorView, :"404")
   end
+  
+  def call(conn, {:error, :unauthorized}) do
+    conn
+    |> put_status(:unauthorized)
+    |> json(%{error: "Login error"})
+  end
+
+  def call(conn, {:error, :unauthorizedUser}) do 
+    conn 
+    |> put_status(:unauthorized)
+    |> json(%{error: "Unauthorized user !"})
+  end
 end
