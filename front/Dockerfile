@@ -5,6 +5,8 @@ WORKDIR app/
 
 #COPY package*.json ./
 
+RUN apk update
+RUN apk add git
 RUN npm install
 RUN npm audit fix --force
 RUN npm rebuild node-sass
