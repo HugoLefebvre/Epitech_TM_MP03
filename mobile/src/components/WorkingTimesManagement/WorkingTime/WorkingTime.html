@@ -1,0 +1,21 @@
+<section class="working-time" xmlns:v-on="http://www.w3.org/1999/xhtml">
+  <div class="flex-container">
+    <v-dialog />
+    <table>
+      <tr>
+        <th>Id</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th v-if="role != 3">Edit</th>
+        <th v-if="role != 3">Delete</th>
+      </tr>
+      <tr v-for="(data, index) in dataBack">
+        <td>{{data.id}}</td>
+        <td>{{moment(data.start).format('DD MMMM YYYY, h:mm:ss a')}}</td>
+        <td>{{moment(data.end).format('DD MMMM YYYY, h:mm:ss a')}}</td>
+        <td v-if="role != 3"><span class="click-link" v-on:click="updateWorkingTime(data.start, data.end)">Edit</span></td>
+        <td v-if="role != 3"><span class="click-link" v-on:click="popupDelete(data.id)">Delete</span></td>
+      </tr>
+    </table>
+  </div>
+</section>

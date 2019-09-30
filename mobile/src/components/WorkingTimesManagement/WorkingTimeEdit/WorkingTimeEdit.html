@@ -1,0 +1,12 @@
+
+<section class="working-time-edit">
+  <div class="flex-container">
+    <form class="flex-container" @submit.prevent="false">
+      <label>Start time</label>
+      <datetime class="flex-container" type="datetime" v-model="start" required/>
+      <label>End time</label>
+      <datetime class="flex-container" type="datetime" v-model="end" required/>    
+      <button type="submit" @click.stop.prevent="createWorkingTime()">Create</button>
+    </form>
+  </div>
+</section>

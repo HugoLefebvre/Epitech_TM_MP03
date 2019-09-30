@@ -1,0 +1,36 @@
+<section class="edit-user" xmlns:v-on="http://www.w3.org/1999/xhtml">
+  <link href="https://fonts.googleapis.com/css?family=Arvo&display=swap" rel="stylesheet">
+
+  <div class="flex-container">
+    <v-dialog />
+    <div>
+      <h1>EDIT USER</h1>
+    </div>
+
+    <form v-on:submit.prevent="submit()">
+    
+      <div class="flex-container">
+        <label>Username</label>
+        <input type="text" v-model="username">
+      </div>
+    
+      <div class="flex-container">
+        <label>Email</label>
+        <input type="text" v-model="email">
+      </div>
+
+      <div class="flex-container">
+        <label>Password</label>
+        <input type="password" v-model="password">
+      </div>
+    
+      <div class="flex-container">
+        <button type="submit">Edit</button>
+      </div>
+    
+    </form>
+
+  </div>
+
+</section>
+

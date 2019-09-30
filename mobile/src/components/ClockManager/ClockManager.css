@@ -1,0 +1,77 @@
+.clock-manager {
+  padding-top: 100px;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+table{
+  margin: auto;
+  width:100%;
+}
+
+table, th, td {
+  border-collapse : collapse;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+table, th {
+  color: gray;
+}
+
+table, td {
+  color: black;
+}
+
+tr:hover {
+  background-color:#f5f5f5;
+}
+
+.wts_to_hide_users{
+    font-size: 20px;
+    color:#000000;
+}
+.wts_to_hide_users:hover{
+    color:gray;
+    cursor:pointer;
+}
+
+.wts_to_show_users{
+    display: none;
+}
+
+.example_e {
+  cursor:pointer;
+  border: none;
+  background: #404040;
+  color: #ffffff !important;
+  font-weight: 100;
+  padding: 20px;
+  text-transform: uppercase;
+  border-radius: 6px;
+  display: inline-block;
+  transition: all 0.3s ease 0s;
+}
+
+.example_e:hover {
+  color: #404040 !important;
+  font-weight: 700 !important;
+  letter-spacing: 3px;
+  background: none;
+  -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  transition: all 0.3s ease 0s;
+}
+
+a{
+  text-decoration: none;
+}
+
+.stop_clock{
+  background-color: brown;
+}

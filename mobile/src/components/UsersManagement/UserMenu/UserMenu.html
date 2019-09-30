@@ -1,0 +1,26 @@
+
+<section class="user-menu">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+  <v-dialog />
+  <div class="user_menu_left">
+    <ul>
+      <li class="selected" data-id="1">EDIT ACCOUNT</li>
+      <li data-id="2">MANAGE USERS</li>
+      <li data-id="3">MANAGE TEAMS</li>
+    </ul>
+  </div>
+
+  <div class="user_interface_right">
+    <div class="selected edit_account" v-if="this.currentPart == 1">
+        <EditUser :id="userId" />
+    </div>
+    <div class="selected edit_account" v-if="this.currentPart == 2">
+        <Users :id="userId" />
+    </div>
+    <div class="selected edit_account" v-if="this.currentPart == 3">
+        Not available
+    </div>
+  </div>
+
+</section>
+

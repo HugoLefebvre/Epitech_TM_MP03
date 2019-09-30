@@ -2,7 +2,10 @@
 
 Run 
 ```docker-compose build```
-```docker-compose up```
+```docker-compose up``` 
+
+If you have an error, run again 
+```docker-compose up``` 
 
 # Using Docker Compose with Datadog
 

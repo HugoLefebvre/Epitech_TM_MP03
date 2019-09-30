@@ -1,0 +1,19 @@
+.working-time-edit {
+
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+button {
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  background-color: #1976d2;
+  padding-top : 8px;
+  padding-bottom: 8px;
+  cursor: pointer;
+}

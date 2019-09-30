@@ -1,0 +1,38 @@
+<section class="clock-manager" xmlns:v-on="http://www.w3.org/1999/xhtml">
+
+    <div class="manage_single_clock">
+        <div v-if="this.ClockState == 1">
+            <b>CLOCK STARTED</b>
+            <br>
+            {{ ClockTime }}
+        </div>
+        <div class="button_cont" align="center" v-on:click="useClock">
+            <a v-if="this.ClockState == 0" class="example_e start_clock" target="_blank" rel="nofollow noopener">
+                <span>START CLOCK</span>
+            </a>
+            <a v-if="this.ClockState == 1" class="example_e stop_clock" target="_blank" rel="nofollow noopener">
+                <span>STOP CLOCK</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="flex-container" v-if="this.Role != '3'">
+        <h1>CLOCKS LIST</h1>
+        <p>Click on items to reach their user's pages</p>
+      <table>
+        <tr>
+          <th>Id</th>
+          <th>Id User</th>
+          <th>Time</th>
+          <th>Status</th>
+        </tr>
+        <tr v-for="(data, index) in dataBack">
+          <td>{{data.id}}</td>
+          <td>{{data.username }}</td>
+          <td>{{moment(data.time).format('DD MMMM YYYY, h:mm:ss a')}}</td>
+          <td>{{data.status}}</td>
+        </tr>
+      </table>
+    </div>
+
+</section>

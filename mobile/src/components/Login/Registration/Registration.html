@@ -1,0 +1,22 @@
+<section class="registration" xmlns:v-on="http://www.w3.org/1999/xhtml">
+    <form v-on:submit.prevent="submit()">
+        <ul class="form-style-1">
+            <li><label>Pseudo / Email<span class="required">*</span></label><input v-model="pseudo" type="text" name="field1" class="field-divided" placeholder="Pseudo" /> <input v-model="email" type="email" name="field2" class="field-divided" placeholder="Email" /></li>
+            <li>
+                <label>Password <span class="required">*</span></label>
+                <input v-model="password" type="password" name="field3" class="field-long" />
+            </li>
+            <li>
+                <label>Role <span class="required">*</span></label>
+                <select id="pet-select" class="field-long" v-model="role">
+                    <option value="3" selected="selected">Employee</option>
+                    <option value="2">Manager</option>
+                    <option value="1">Administrator</option>
+                </select>
+            </li>
+            <li>
+                <input type="submit" value="Submit" />
+            </li>
+        </ul>
+    </form>
+</section>
