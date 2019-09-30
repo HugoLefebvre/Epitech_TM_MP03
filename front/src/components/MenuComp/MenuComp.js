@@ -4,13 +4,17 @@ export default {
   props: [],
   data () {
     return {
-        Username:''
+        Username:'',
+        userRole:'',
+        userId:''
     }
   },
   computed: {
 
   },
   mounted () {
+      if(localStorage.Role) this.userRole = localStorage.Role
+      if(localStorage.IdUser) this.userId = "/user/edit-user/" + localStorage.IdUser
     if(localStorage.Username){
         this.Username = localStorage.Username;
     }

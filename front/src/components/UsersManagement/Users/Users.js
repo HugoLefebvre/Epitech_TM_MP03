@@ -1,19 +1,25 @@
 import axios from 'axios'
-import CreateUser from "../CreateUser/index";
+import Registration from "../../Login/Registration/index";
 
 export default {
   name: 'users',
-  components: {},
+  components: {
+    Registration
+  },
   props: [],
   data () {
     return {
       dataBack : '',
+      userRole: ''
     }
   },
   computed: {
 
   },
   mounted () {
+
+    if(localStorage.Role) this.userRole = localStorage.Role
+
     var self = this;
 
     axios({
@@ -34,18 +40,8 @@ export default {
   methods: {
 
     displayCreate: function(){
-      this.$modal.show('dialog', {
-        title: 'Add a new user',
+      this.$modal.show(Registration, {
         text: '',
-        buttons: [
-          {
-            title: 'Register',
-            handler: () => { alert('Woot!') }
-          },
-          {
-            title: 'Close'
-          }
-        ]
       })
     },
 

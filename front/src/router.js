@@ -2,20 +2,17 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 import ClockManager from "./components/ClockManager/index";
-import ClockManagerDetail from "./components/ClockManagerDetail/index";
-import ClockManagerCreate from "./components/ClockManagerCreate/index"
 
 import ChartManager from "./components/ChartManager/index";
 
-import HelloWorld from './components/HelloWorld';
 
 import WorkingTimes from './components/WorkingTimesManagement/WorkingTimes/index';
 import WorkingTime from './components/WorkingTimesManagement/WorkingTime/index';
 import WorkingTimeEdit from './components/WorkingTimesManagement/WorkingTimeEdit/index';
 
 import Users from './components/UsersManagement/Users/';
-import CreateUser from './components/UsersManagement/CreateUser/';
 import EditUser from './components/UsersManagement/EditUser/';
+import UserMenu from "./components/UsersManagement/UserMenu/index";
 
 Vue.use(Router)
 
@@ -25,16 +22,6 @@ export default new Router({
             path: '/clock-manager',
             name: 'clock-manager',
             component: ClockManager
-        },
-        {
-            path: '/clock-manager/:userID',
-            name: 'clock-manager',
-            component: ClockManagerDetail
-        },
-        {
-            path: '/clock-manager/:userID/create',
-            name: 'clock-manager',
-            component: ClockManagerCreate
         },
         {
             path: '/chart-manager',
@@ -58,13 +45,8 @@ export default new Router({
         },
         {
             path: '/user',
-            name: 'users',
-            component: Users
-        },
-        {
-            path: '/user/create-user',
-            name: 'create-user',
-            component: CreateUser
+            name: 'UserMenu',
+            component: UserMenu
         },
         {
             path: '/user/edit-user/:userID',

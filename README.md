@@ -1,3 +1,9 @@
+# How to run the docker ? 
+
+Run 
+```docker-compose build```
+```docker-compose up```
+
 # Using Docker Compose with Datadog
 
 Datadog offers native Docker container monitoring, either by running the Agent

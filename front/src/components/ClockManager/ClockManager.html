@@ -17,25 +17,6 @@
     </div>
 
     <div class="flex-container" v-if="this.Role != '3'">
-        <div>
-            <h1>USER LIST</h1>
-            <div class="wts_to_hide_users" v-if="!userDisplay" v-on:click="displayUsers()">
-                Click here to display Users
-            </div>
-            <table v-if="userDisplay">
-                <tr>
-                    <th>Id User</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                </tr>
-                <tr v-for="(data, index) in dataUser" v-on:click="redirectWorkingTime(data.id)">
-                    <td>{{data.id}}</td>
-                    <td>{{data.username }}</td>
-                    <td>{{data.email}}</td>
-                </tr>
-            </table>
-        </div>
-        <br>
         <h1>CLOCKS LIST</h1>
         <p>Click on items to reach their user's pages</p>
       <table>
@@ -45,7 +26,7 @@
           <th>Time</th>
           <th>Status</th>
         </tr>
-        <tr v-for="(data, index) in dataBack" v-on:click="redirectWorkingTime(data.user)">
+        <tr v-for="(data, index) in dataBack">
           <td>{{data.id}}</td>
           <td>{{data.username }}</td>
           <td>{{moment(data.time).format('DD MMMM YYYY, h:mm:ss a')}}</td>

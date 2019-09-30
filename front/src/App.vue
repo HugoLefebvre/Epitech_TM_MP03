@@ -7,7 +7,7 @@
 
 <script>
 import Index from "./components/Index/index"
-
+window.$ = require('jquery')
 export default {
   name: 'app',
   components: {

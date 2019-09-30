@@ -11,7 +11,12 @@
             <li><router-link to="/working-times">WORKING TIMES</router-link></li>
             <li><router-link to="/clock-manager">CLOCK MANAGER</router-link></li>
             <li><router-link to="/chart-manager">CHART MANAGER</router-link></li>
-            <li><router-link to="/user">{{ this.Username.toUpperCase() }}</router-link></li>
+            <li v-if="userRole != 3">
+                <router-link to="/user">{{ this.Username.toUpperCase() }}</router-link>
+            </li>
+            <li v-if="userRole == 3">
+                <router-link :to="userId">{{ this.Username.toUpperCase() }}</router-link>
+            </li>
         </ul>
     </div>
 

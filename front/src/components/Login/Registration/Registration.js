@@ -9,7 +9,7 @@ export default {
         pseudo:'',
         email:'',
         password:'',
-        confirmPassword:''
+        role:''
     }
   },
   computed: {
@@ -26,6 +26,7 @@ export default {
       },
 
       RegisterUser: function() {
+          var self = this;
         // Must return to authorize then clause
         return axios({
           method: 'post',
@@ -35,20 +36,16 @@ export default {
                   username : this.pseudo,
                   email : this.email,
                   password : this.password,
-                  role_id : 1
+                  role_id : this.role
               }
-          }
+          },
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.AccessKey
+            }
         }).then(function(response) {
-            console.log(response);
+            self.$parent.$modal.close();
         }).catch(function(error){
           console.log(error);
-        });
-      },
-
-      // Return to the list of working-time of the user
-      redirection(){
-        this.$router.push({
-          path: `/user`
         });
       }
   }

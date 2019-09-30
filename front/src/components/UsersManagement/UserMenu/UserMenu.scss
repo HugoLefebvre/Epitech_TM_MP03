@@ -1,0 +1,46 @@
+.user-menu {
+ background-color: #4691A4;
+  position: absolute;
+  top:0px;
+  width:100%;
+  height: 100%;
+  background-color: #BEBEBE;
+}
+
+.user_menu_left{
+  padding-top: 350px;
+  background-color: #d13636;
+  height: 100%;
+  position: fixed;
+  width: 30%;
+}
+
+.user_menu_left ul{
+  list-style: none;
+  padding: 0;
+  margin:0;
+}
+
+.user_menu_left li{
+  font-size: 25px;
+  font-family: 'Noto Sans TC', sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  color: black;
+  padding-top: 15px;
+  padding-bottom: 15px;
+
+}
+.user_menu_left li.selected{
+  color:#E49214;
+}
+
+.user_interface_right{
+  background-color: #FFFFFF;
+  padding-top: 250px;
+  height: 100%;
+  position: fixed;
+  width: 70%;
+  right:0px;
+  border-left: solid black 4px;
+}
