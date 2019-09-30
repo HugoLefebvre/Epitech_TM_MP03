@@ -11,15 +11,12 @@
   </div>
   <div>
       <h3>Working time per week</h3>
-      <input v-model="startTimeBar" type="date" name="field3" class="field-long" placeholder="Start date" />
-      <input v-model="endTimeBar" type="date" name="field3" class="field-long" placeholder="End date" />
       <bar-chart id="bar" :data="barData" :colors="barColors" :xkey="xkeyBar" :ykeys="ykeysBar" :labels="labelsBar" 
-      :xLabels='xLabelsBar' :xLabelAngle="xlabelangleBar" :hideOver="true" :resize="true" ></bar-chart>
+      :xLabels='xLabelsBar' :hideOver="true" :resize="true" ></bar-chart>
   </div>
   <div>
       <h3>Working time per month</h3>
-      <bar-chart id="bar" :data="donutData" :colors="donutColors" :xkey="xkeyDonut" :ykeys="ykeysDonut" :labels="labelsDonut" 
-      :xLabels='xLabelsBar' :xLabelAngle="xlabelangleBar" :hideOver="true" :resize="true" ></bar-chart>
+      <bar-chart id="bar" :data="donutData" :colors="donutColors" :resize="true" ></bar-chart>
   </div>
   
 

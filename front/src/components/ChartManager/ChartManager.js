@@ -1,4 +1,4 @@
-// import { DonutChart } from 'vue-morris'
+import { DonutChart } from 'vue-morris'
 import { LineChart } from 'vue-morris'
 import { BarChart } from 'vue-morris'
 import axios from 'axios'
@@ -6,7 +6,7 @@ import axios from 'axios'
 export default {
   name: 'chart-manager',
   components: {
-    // DonutChart, 
+    DonutChart, 
     LineChart, 
     BarChart,
   },
@@ -37,11 +37,13 @@ export default {
       ykeysBar :[], 
       labelsBar :[], 
       barColors :[],
-      xlabelangleBar: '90',
       xLabelsBar: 'day',
-      xLabelFormatBar:function(x) {        
-        return x.toDateString();
-      },
+
+      //Donut Chart Data
+      startTimeDonut: '', 
+      endTimeDonut: '', 
+      donutData : [], 
+      donutColors: [], 
       
     }
   },
@@ -55,6 +57,7 @@ export default {
 
     self.setLineChart(); 
     self.setBarChart(); 
+    self.setDonutChart(); 
     
   },
   methods:{
@@ -73,6 +76,45 @@ export default {
       var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
       var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7);
       return weekNo;
+    },
+
+    setDonutChart: function(){
+      var self = this; 
+
+      self.endTimeDonut = new Date; 
+      self.startTimeDonut = new Date(self.endTimeDonut.getFullYear(), self.endTimeDonut.getMonth(), 1); 
+      var Stime = self.startTimeDonut.getFullYear() + '-' + self.pad(self.startTimeDonut.getMonth()+1) + '-' + 
+      self.pad(self.startTimeDonut.getDate()) + '+' + '00:00:00'
+
+      var Etime = self.endTimeDonut.getFullYear() + '-' + self.pad(self.endTimeDonut.getMonth()+1) + '-' + 
+      self.pad(self.endTimeDonut.getDate()) + '+' + self.pad(self.endTimeDonut.getHours()) + ':' + 
+      self.pad(self.endTimeDonut.getMinutes()) + ':' + self.pad(self.endTimeDonut.getSeconds());
+
+      axios({
+        method: 'get',
+        url: 'http://localhost:4000/api/workingtimes/'+ self.user_ID + '?start=' + Stime + '&end=' + Etime,
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.AccessKey
+        }
+      })
+      .then(function (response) {
+        var data = response.data.data;
+        var tot = 0;
+        var obj;
+        var monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"];
+
+        var i = 0;
+        for (i = 0; i < data.length; i++) {
+          tot += Math.abs(new Date(data[i].end) - new Date(data[i].start))/(1000 * 60 * 60);
+        }
+        obj = { label: monthNames[new Date(data[0].start).getMonth()], value: tot};
+        self.donutData.push(obj); 
+        self.donutColors.push('#FF6384');
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     },
 
     setBarChart: function(){
